@@ -7,5 +7,5 @@ interface ApodDomainToUiMapper: Abstract.Mapper {
     fun map(title: String,
             apodUri: String,
             date: String,
-            description: String): ApodUi.ImageApod
+            description: String): ApodUi
 }

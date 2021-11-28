@@ -12,15 +12,18 @@ abstract class ApodDomain(): Abstract.Object<ApodUi, ApodDomainToUiMapper>() {
     ): ApodDomain() {
 
         override fun map(mapper: ApodDomainToUiMapper): ApodUi {
-            return mapper.map()
+            return mapper.map(title, apodUri, date, description)
         }
     }
 
     class VideoApod(
-
+        private val title: String,
+        private val apodUri: String,
+        private val date: String,
+        private val description: String
     ): ApodDomain() {
         override fun map(mapper: ApodDomainToUiMapper): ApodUi {
-            return mapper.map()
+            return mapper.map(title, apodUri, date, description)
         }
     }
 }
