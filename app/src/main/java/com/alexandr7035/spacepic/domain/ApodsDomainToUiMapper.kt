@@ -6,7 +6,7 @@ import com.alexandr7035.spacepic.data.ApodData
 import com.alexandr7035.spacepic.ui.ApodsUi
 
 interface ApodsDomainToUiMapper: Abstract.Mapper {
-    fun map(apods: List<ApodData>): ApodsUi
+    fun map(apods: List<ApodDomain>): ApodsUi
 
     fun map(errorType: ErrorType): ApodsUi
 }
