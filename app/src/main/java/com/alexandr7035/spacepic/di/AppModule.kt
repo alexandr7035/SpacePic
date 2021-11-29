@@ -1,8 +1,13 @@
 package com.alexandr7035.spacepic.di
 
-import com.alexandr7035.spacepic.data.ApiService
-import com.alexandr7035.spacepic.data.ApodsCloudDataSource
-import com.alexandr7035.spacepic.data.ApodsCloudDataSourceImpl
+import com.alexandr7035.spacepic.data.*
+import com.alexandr7035.spacepic.data.remote.ApodListRemoteToDataMapper
+import com.alexandr7035.spacepic.data.remote.ApodListRemoteToDataMapperImpl
+import com.alexandr7035.spacepic.data.remote.ApodRemoteToDataMapper
+import com.alexandr7035.spacepic.data.remote.ApodRemoteToDataMapperImpl
+import com.alexandr7035.spacepic.domain.*
+import com.alexandr7035.spacepic.ui.ApodDomainToUiMapperImpl
+import com.alexandr7035.spacepic.ui.ApodsDomainToUiMapperImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,6 +52,49 @@ class AppModule {
     @Provides
     fun provideCloudDataSource(apiService: ApiService): ApodsCloudDataSource {
         return ApodsCloudDataSourceImpl(apiService)
+    }
+
+    // Mappers
+    @Provides
+    fun provideApodRemoteToDataMapper(): ApodRemoteToDataMapper {
+        return ApodRemoteToDataMapperImpl()
+    }
+
+    @Provides
+    fun provideApodListRemoteToDataMapper(mapper: ApodRemoteToDataMapper): ApodListRemoteToDataMapper {
+        return ApodListRemoteToDataMapperImpl(mapper)
+    }
+
+    @Provides
+    fun provideApodDataToDomainMapper(): ApodDataToDomainMapper {
+        return ApodDataToDomainMapperImpl()
+    }
+
+    @Provides
+    fun provideApodsDataToDomainMapper(apodDataToDomainMapper: ApodDataToDomainMapper): ApodsDataToDomainMapper {
+        return ApodsDataToDomainMapperImpl(apodDataToDomainMapper)
+    }
+
+    @Provides
+    fun provideApodDomainToUiMapper(): ApodDomainToUiMapper {
+        return ApodDomainToUiMapperImpl()
+    }
+
+    @Provides
+    fun provideApodsDomainToUiMapper(apodDomainToUiMapper: ApodDomainToUiMapper): ApodsDomainToUiMapper {
+        return ApodsDomainToUiMapperImpl(apodDomainToUiMapper)
+    }
+
+    // Repository
+    @Provides
+    fun provideApodsRepository(cloudDataSource: ApodsCloudDataSource, mapper: ApodListRemoteToDataMapper): ApodsRepository {
+        return ApodsRepositoryImpl(cloudDataSource, mapper)
+    }
+
+    // Interactor
+    @Provides
+    fun provideApodsInteractor(repository: ApodsRepository, apodsDataToDomainMapper: ApodsDataToDomainMapper): ApodsInteractor {
+        return ApodsInteractorImpl(repository, apodsDataToDomainMapper)
     }
 
 }

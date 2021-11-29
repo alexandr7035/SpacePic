@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.spacepic.databinding.ViewApodBinding
+import com.bumptech.glide.Glide
 
 class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder>() {
 
@@ -54,6 +55,8 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
                 val apod = apod as ApodUi.ImageApod
                 binding.date.text = apod.date
                 binding.title.text = apod.title
+
+                Glide.with(binding.root.context).load(apod.apodUri).into(binding.imageView)
             }
         }
 
