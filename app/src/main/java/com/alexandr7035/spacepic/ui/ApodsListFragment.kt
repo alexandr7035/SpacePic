@@ -51,16 +51,10 @@ class ApodsListFragment : Fragment() {
         )
 
         viewModel.apodsLiveData.observe(viewLifecycleOwner, { apodsUi ->
-            if (apodsUi is ApodsUi.Success) {
-                Timber.tag("DEBUG_TAG").d("SUCCESS ${apodsUi.apods}")
-                adapter.setItems((apodsUi.apods))
-            }
-            else if (apodsUi is ApodsUi.Fail) {
-                Timber.tag("DEBUG_TAG").d("FAIL ${apodsUi.errorMessage}")
-            }
+            adapter.setItems((apodsUi.apods))
         })
 
-//        adapter.setItems(testItmes)
+        adapter.setItems(testItmes)
         viewModel.init()
     }
 

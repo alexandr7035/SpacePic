@@ -32,8 +32,6 @@ abstract class ApodsDomain: Abstract.Object<ApodsUi, ApodsDomainToUiMapper>() {
                 else -> ErrorType.GENERIC_ERROR
             }
 
-            throw e
-
             return mapper.map(errorType)
         }
 

@@ -31,4 +31,10 @@
         <item name="titleTextColor">@color/white</item>
         <item name="android:elevation">0dp</item>
     </style>
+
+    <style name="ErrorTextStyle">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/gray_300</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

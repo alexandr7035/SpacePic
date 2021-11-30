@@ -11,4 +11,6 @@ abstract class ApodUi {
     class VideoApod(
 
     ): ApodUi()
+
+    class Fail(val errorMessage: String): ApodUi()
 }
