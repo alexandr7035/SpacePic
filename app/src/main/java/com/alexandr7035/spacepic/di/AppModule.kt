@@ -1,5 +1,6 @@
 package com.alexandr7035.spacepic.di
 
+import android.app.Application
 import com.alexandr7035.spacepic.data.*
 import com.alexandr7035.spacepic.data.remote.ApodListRemoteToDataMapper
 import com.alexandr7035.spacepic.data.remote.ApodListRemoteToDataMapperImpl
@@ -81,8 +82,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideApodsDomainToUiMapper(apodDomainToUiMapper: ApodDomainToUiMapper): ApodsDomainToUiMapper {
-        return ApodsDomainToUiMapperImpl(apodDomainToUiMapper)
+    fun provideApodsDomainToUiMapper(apodDomainToUiMapper: ApodDomainToUiMapper, resourceProvider: ResourceProvider): ApodsDomainToUiMapper {
+        return ApodsDomainToUiMapperImpl(apodDomainToUiMapper, resourceProvider)
     }
 
     // Repository
@@ -97,4 +98,9 @@ class AppModule {
         return ApodsInteractorImpl(repository, apodsDataToDomainMapper)
     }
 
+    // Common
+    @Provides
+    fun provideResourceProvider(application: Application): ResourceProvider {
+        return ResourceProviderImpl(application)
+    }
 }
