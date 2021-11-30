@@ -7,11 +7,9 @@
     tools:context=".ui.ApodsListFragment">
 
     <androidx.appcompat.widget.Toolbar
+        style="@style/ToolbarStyle"
         android:id="@+id/toolbar"
-        android:background="#3a3a3a"
-        android:elevation="4dp"
         app:title="@string/space_pictures"
-        app:titleTextColor="@color/white"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +18,6 @@
 
     <androidx.recyclerview.widget.RecyclerView
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:background="#3a3a3a"
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
