@@ -8,6 +8,7 @@ import com.alexandr7035.spacepic.ui.ApodsUi
 import retrofit2.HttpException
 import java.lang.Exception
 import java.net.ConnectException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 abstract class ApodsDomain: Abstract.Object<ApodsUi, ApodsDomainToUiMapper>() {
@@ -29,6 +30,7 @@ abstract class ApodsDomain: Abstract.Object<ApodsUi, ApodsDomainToUiMapper>() {
                 is UnknownHostException -> ErrorType.NO_CONNECTION
                 is ConnectException -> ErrorType.NO_CONNECTION
                 is HttpException -> ErrorType.SERVICE_UNAVAILABLE
+                is SocketTimeoutException -> ErrorType.TIMEOUT_ERROR
                 else -> ErrorType.GENERIC_ERROR
             }
 

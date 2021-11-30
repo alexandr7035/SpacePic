@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.alexandr7035.spacepic.databinding.ViewApodFailBinding
 import com.alexandr7035.spacepic.databinding.ViewApodImageBinding
+import com.alexandr7035.spacepic.databinding.ViewApodVideoBinding
 import com.bumptech.glide.Glide
 
 class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder>() {
@@ -30,10 +30,6 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
                 val binding = ViewApodImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 ViewHolder.Image(binding)
             }
-            ApodViewType.APOD_FAIL.ordinal -> {
-                val binding = ViewApodFailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ViewHolder.Fail(binding)
-            }
             else -> {
                 throw RuntimeException("unknown viewholder, implement it")
             }
@@ -45,7 +41,6 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
         return when(items[position]) {
             is ApodUi.ImageApod -> ApodViewType.APOD_IMAGE.ordinal
             is ApodUi.VideoApod -> ApodViewType.APOD_VIDEO.ordinal
-            is ApodUi.Fail -> ApodViewType.APOD_FAIL.ordinal
             else -> throw java.lang.RuntimeException("Unknown viewtype. Implement it")
         }
     }
@@ -68,10 +63,11 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
             }
         }
 
-        class Fail(private val binding: ViewApodFailBinding): ViewHolder(binding.root) {
+        class Video(private val binding: ViewApodVideoBinding): ViewHolder(binding.root) {
             override fun bind(apod: ApodUi) {
-                val apodCasted = apod as ApodUi.Fail
-                binding.errorMessageView.text = apodCasted.errorMessage
+                val apodCasted = apod as ApodUi.VideoApod
+
+                // TODO
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.alexandr7035.spacepic.R
 import com.alexandr7035.spacepic.databinding.FragmentApodsListBinding
@@ -29,32 +30,22 @@ class ApodsListFragment : Fragment() {
         val adapter = ApodsRecyclerAdapter()
         binding?.recycler?.adapter = adapter
 
-        val testItmes = listOf<ApodUi>(
-            ApodUi.ImageApod(
-                title = "Image1",
-                apodUri = "link",
-                date = "2020-11-01",
-                description = "description"
-            ),
-            ApodUi.ImageApod(
-                title = "Image1",
-                apodUri = "link",
-                date = "2020-11-01",
-                description = "description"
-            ),
-            ApodUi.ImageApod(
-                title = "Image1",
-                apodUri = "link",
-                date = "2020-11-01",
-                description = "description"
-            )
-        )
-
         viewModel.apodsLiveData.observe(viewLifecycleOwner, { apodsUi ->
-            adapter.setItems((apodsUi.apods))
+
+            when (apodsUi) {
+                is ApodsUi.Success -> {
+                    adapter.setItems(apodsUi.apods)
+                }
+
+                is ApodsUi.Progress -> {
+                    Toast.makeText(requireContext(), "Progress...", Toast.LENGTH_SHORT).show()
+                }
+                is ApodsUi.Fail -> {
+                    Toast.makeText(requireContext(), apodsUi.errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
         })
 
-        adapter.setItems(testItmes)
         viewModel.init()
     }
 
