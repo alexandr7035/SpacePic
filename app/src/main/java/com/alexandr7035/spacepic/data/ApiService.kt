@@ -10,6 +10,7 @@ interface ApiService {
     suspend fun getApodsList(
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String,
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("thumbs") includeThumbs: Boolean = true
     ): List<ApodRemote>
 }

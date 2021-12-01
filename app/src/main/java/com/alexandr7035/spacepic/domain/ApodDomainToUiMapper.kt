@@ -4,8 +4,14 @@ import com.alexandr7035.spacepic.core.Abstract
 import com.alexandr7035.spacepic.ui.ApodUi
 
 interface ApodDomainToUiMapper: Abstract.Mapper {
-    fun map(title: String,
-            apodUri: String,
+    // FIXME
+    fun mapImage(title: String,
+            imageUrl: String,
+            date: String,
+            description: String): ApodUi
+
+    fun mapVideo(title: String,
+            videoThumbUrl: String,
             date: String,
             description: String): ApodUi
 }

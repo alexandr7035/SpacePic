@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.databinding.ViewApodImageBinding
 import com.alexandr7035.spacepic.databinding.ViewApodVideoBinding
 import com.bumptech.glide.Glide
+import timber.log.Timber
 
 class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder>() {
 
@@ -30,6 +32,12 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
                 val binding = ViewApodImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 ViewHolder.Image(binding)
             }
+
+            ApodViewType.APOD_VIDEO.ordinal -> {
+                val binding = ViewApodVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ViewHolder.Video(binding)
+            }
+
             else -> {
                 throw RuntimeException("unknown viewholder, implement it")
             }
@@ -59,15 +67,19 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
                 binding.date.text = apodCasted.date
                 binding.title.text = apodCasted.title
 
-                Glide.with(binding.root.context).load(apod.apodUri).into(binding.imageView)
+                Glide.with(binding.root.context).load(apod.imageUrl).into(binding.imageView)
             }
         }
 
         class Video(private val binding: ViewApodVideoBinding): ViewHolder(binding.root) {
             override fun bind(apod: ApodUi) {
                 val apodCasted = apod as ApodUi.VideoApod
+                binding.date.text = apodCasted.date
+                binding.title.text = apodCasted.title
 
-                // TODO
+                Timber.debug("url ${apodCasted.videoThumbUrl}")
+
+                Glide.with(binding.root.context).load(apod.videoThumbUrl).into(binding.videoThumbView)
             }
         }
     }

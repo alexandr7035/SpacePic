@@ -5,9 +5,11 @@ import com.alexandr7035.spacepic.domain.ApodDomain
 
 interface ApodDataToDomainMapper: Abstract.Mapper {
     fun map(
+        mediaType: String,
         title: String,
-        apodUri: String,
+        apodUrl: String,
         date: String,
-        description: String
+        description: String,
+        videoThumbUrl: String?
     ): ApodDomain
 }
