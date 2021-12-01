@@ -16,6 +16,8 @@ class MainViewModel @Inject constructor(private val interactor: ApodsInteractor,
     val apodsLiveData = MutableLiveData<ApodsUi>()
 
     fun init() {
+        apodsLiveData.postValue(ApodsUi.Progress())
+
         viewModelScope.launch(Dispatchers.IO) {
             val apods = interactor.fetchApods()
             val apodsUi = apods.map(apodsDomainToUiMapper)

@@ -54,13 +54,17 @@ class ApodsListFragment : Fragment() {
                     binding?.progressView?.visibility = View.GONE
                     binding?.errorView?.visibility = View.VISIBLE
                     binding?.recycler?.visibility = View.GONE
-                    binding?.errorView?.text = apodsUi.errorMessage
+                    binding?.errorTextView?.text = apodsUi.errorMessage
 //                    Toast.makeText(requireContext(), apodsUi.errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })
 
         viewModel.init()
+
+        binding?.retryBtn?.setOnClickListener {
+            viewModel.init()
+        }
     }
 
     override fun onDestroyView() {
