@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.alexandr7035.spacepic.R
+import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.databinding.FragmentApodsListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -30,18 +31,31 @@ class ApodsListFragment : Fragment() {
         val adapter = ApodsRecyclerAdapter()
         binding?.recycler?.adapter = adapter
 
+        viewModel.apodsLiveData.value = ApodsUi.Progress()
+
         viewModel.apodsLiveData.observe(viewLifecycleOwner, { apodsUi ->
+
+            Timber.debug("Update apods $apodsUi")
 
             when (apodsUi) {
                 is ApodsUi.Success -> {
+                    binding?.progressView?.visibility = View.GONE
+                    binding?.errorView?.visibility = View.GONE
+                    binding?.recycler?.visibility = View.VISIBLE
                     adapter.setItems(apodsUi.apods)
                 }
-
                 is ApodsUi.Progress -> {
-                    Toast.makeText(requireContext(), "Progress...", Toast.LENGTH_SHORT).show()
+                    binding?.progressView?.visibility = View.VISIBLE
+                    binding?.errorView?.visibility = View.GONE
+                    binding?.recycler?.visibility = View.GONE
+//                    Toast.makeText(requireContext(), "Progress...", Toast.LENGTH_SHORT).show()
                 }
                 is ApodsUi.Fail -> {
-                    Toast.makeText(requireContext(), apodsUi.errorMessage, Toast.LENGTH_SHORT).show()
+                    binding?.progressView?.visibility = View.GONE
+                    binding?.errorView?.visibility = View.VISIBLE
+                    binding?.recycler?.visibility = View.GONE
+                    binding?.errorView?.text = apodsUi.errorMessage
+//                    Toast.makeText(requireContext(), apodsUi.errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })
