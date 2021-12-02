@@ -1,5 +1,6 @@
 package com.alexandr7035.spacepic.data
 
+import com.alexandr7035.spacepic.BuildConfig
 import com.alexandr7035.spacepic.data.remote.ApodRemote
 import javax.inject.Inject
 
@@ -8,7 +9,7 @@ class ApodsCloudDataSourceImpl @Inject constructor(private val apiService: ApiSe
         return apiService.getApodsList(
             startDate = startDate,
             endDate = endDate,
-            apiKey = "DEMO_KEY"
+            apiKey = BuildConfig.API_KEY
         ).reversed()
     }
 }
