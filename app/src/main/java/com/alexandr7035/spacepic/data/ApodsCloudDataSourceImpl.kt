@@ -9,6 +9,6 @@ class ApodsCloudDataSourceImpl @Inject constructor(private val apiService: ApiSe
             startDate = startDate,
             endDate = endDate,
             apiKey = "DEMO_KEY"
-        )
+        ).reversed()
     }
 }
