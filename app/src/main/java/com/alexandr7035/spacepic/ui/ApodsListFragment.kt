@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.spacepic.core.extensions.debug
+import com.alexandr7035.spacepic.core.extensions.getApodStringDateFromUnix
 import com.alexandr7035.spacepic.core.extensions.getApodUnixDateFromString
 import com.alexandr7035.spacepic.databinding.FragmentApodsListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -100,7 +101,6 @@ class ApodsListFragment : Fragment() {
                 if (! isPaginationLoading) {
                     if (visibleItemsCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
                         isPaginationLoading = true
-                        adapter.addLoadingFooter()
                         loadMoreItems()
                     }
                 }
@@ -117,6 +117,10 @@ class ApodsListFragment : Fragment() {
                     else -> System.currentTimeMillis()
                 }
 
+                Timber.debug("load more last end date = ${lastApodDate.getApodStringDateFromUnix()}")
+
+                // Left it only after last apod date calculation
+                adapter.addLoadingFooter()
                 viewModel.loadMore(lastApodDate)
             }
         })
