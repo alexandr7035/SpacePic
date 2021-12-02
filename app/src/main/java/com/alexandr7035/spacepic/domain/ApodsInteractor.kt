@@ -1,5 +1,6 @@
 package com.alexandr7035.spacepic.domain
 
 interface ApodsInteractor {
-    suspend fun fetchApods(): ApodsDomain
+    // FIXME use long after data layer
+    suspend fun fetchApods(lastApodDate: Long): ApodsDomain
 }

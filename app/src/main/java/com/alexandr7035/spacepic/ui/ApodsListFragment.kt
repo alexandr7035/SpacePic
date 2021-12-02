@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.spacepic.core.extensions.debug
+import com.alexandr7035.spacepic.core.extensions.getApodUnixDateFromString
 import com.alexandr7035.spacepic.databinding.FragmentApodsListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -18,6 +19,9 @@ class ApodsListFragment : Fragment() {
 
     private var binding: FragmentApodsListBinding? = null
     private val viewModel by viewModels<MainViewModel>()
+
+    // FIXME global var is not good
+    private var isPaginationLoading: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -41,18 +45,33 @@ class ApodsListFragment : Fragment() {
 
             when (apodsUi) {
                 is ApodsUi.Success -> {
+                    if (isPaginationLoading) {
+                        isPaginationLoading = false
+                        adapter.removeLoadingFooter()
+                    }
+
                     binding?.progressView?.visibility = View.GONE
                     binding?.errorView?.visibility = View.GONE
                     binding?.recycler?.visibility = View.VISIBLE
-                    adapter.setItems(ArrayList(apodsUi.apods))
+                    adapter.addItems(ArrayList(apodsUi.apods))
                 }
                 is ApodsUi.Progress -> {
+                    if (isPaginationLoading) {
+                        isPaginationLoading = false
+                        adapter.removeLoadingFooter()
+                    }
+
                     binding?.progressView?.visibility = View.VISIBLE
                     binding?.errorView?.visibility = View.GONE
                     binding?.recycler?.visibility = View.GONE
 //                    Toast.makeText(requireContext(), "Progress...", Toast.LENGTH_SHORT).show()
                 }
                 is ApodsUi.Fail -> {
+                    if (isPaginationLoading) {
+                        isPaginationLoading = false
+                        adapter.removeLoadingFooter()
+                    }
+
                     binding?.progressView?.visibility = View.GONE
                     binding?.errorView?.visibility = View.VISIBLE
                     binding?.recycler?.visibility = View.GONE
@@ -65,12 +84,11 @@ class ApodsListFragment : Fragment() {
         viewModel.init()
 
         binding?.retryBtn?.setOnClickListener {
+            // FIXME pagination
             viewModel.init()
         }
 
         binding?.recycler?.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-
-            private var isLoading: Boolean = false
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -79,9 +97,9 @@ class ApodsListFragment : Fragment() {
                 val totalItemCount = layoutManager.itemCount
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                if (! isLoading) {
+                if (! isPaginationLoading) {
                     if (visibleItemsCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
-                        isLoading = true
+                        isPaginationLoading = true
                         adapter.addLoadingFooter()
                         loadMoreItems()
                     }
@@ -90,6 +108,16 @@ class ApodsListFragment : Fragment() {
 
             fun loadMoreItems() {
                 Timber.debug("load more...")
+
+                val lastApod = adapter.getLastItem()
+
+                val lastApodDate = when(lastApod) {
+                    is ApodUi.ImageApod -> lastApod.date.getApodUnixDateFromString()
+                    is ApodUi.VideoApod -> lastApod.date.getApodUnixDateFromString()
+                    else -> System.currentTimeMillis()
+                }
+
+                viewModel.loadMore(lastApodDate)
             }
         })
     }

@@ -17,10 +17,15 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
     private var items = ArrayList<ApodUi>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: ArrayList<ApodUi>) {
-        this.items = items
+    fun addItems(insertedItems: ArrayList<ApodUi>) {
+//        this.items = items
+
+        val currentEnd = insertedItems.size
+
+        this.items.addAll(insertedItems)
 //        Timber.debug("set items $items")
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
+        notifyItemRangeChanged(currentEnd+1, insertedItems.size)
     }
 
     fun addLoadingFooter() {
@@ -31,6 +36,16 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
     fun removeLoadingFooter() {
         items.removeAt(items.size - 1)
         notifyItemRemoved(items.size-1)
+    }
+
+    fun getLastItem(): ApodUi? {
+
+        if (items.isNotEmpty()) {
+            return items.last()
+        }
+        else {
+            return null
+        }
     }
 
     override fun getItemCount(): Int {

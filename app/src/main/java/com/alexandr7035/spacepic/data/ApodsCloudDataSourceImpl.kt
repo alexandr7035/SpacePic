@@ -4,10 +4,10 @@ import com.alexandr7035.spacepic.data.remote.ApodRemote
 import javax.inject.Inject
 
 class ApodsCloudDataSourceImpl @Inject constructor(private val apiService: ApiService): ApodsCloudDataSource {
-    override suspend fun fetchApods(): List<ApodRemote> {
+    override suspend fun fetchApods(startDate: String, endDate: String): List<ApodRemote> {
         return apiService.getApodsList(
-            startDate = "2021-10-01",
-            endDate = "2021-10-31",
+            startDate = startDate,
+            endDate = endDate,
             apiKey = "DEMO_KEY"
         )
     }

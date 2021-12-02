@@ -9,9 +9,9 @@ class ApodsRepositoryImpl @Inject constructor(
     private val apodsCloudDataSource: ApodsCloudDataSource,
     private val apodsListRemoteToDataMapper: ApodListRemoteToDataMapper
 ) : ApodsRepository {
-    override suspend fun fetchPictures(): ApodsData {
+    override suspend fun fetchPictures(startDate: String, endDate: String): ApodsData {
         try {
-            val remoteList = apodsCloudDataSource.fetchApods()
+            val remoteList = apodsCloudDataSource.fetchApods(startDate, endDate)
             val data = apodsListRemoteToDataMapper.map(remoteList)
             return ApodsData.Success(data)
 

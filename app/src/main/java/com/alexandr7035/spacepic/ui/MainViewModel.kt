@@ -19,7 +19,18 @@ class MainViewModel @Inject constructor(private val interactor: ApodsInteractor,
         apodsLiveData.postValue(ApodsUi.Progress())
 
         viewModelScope.launch(Dispatchers.IO) {
-            val apods = interactor.fetchApods()
+            val apods = interactor.fetchApods(System.currentTimeMillis())
+            val apodsUi = apods.map(apodsDomainToUiMapper)
+
+            withContext(Dispatchers.Main) {
+                apodsLiveData.value = apodsUi
+            }
+        }
+    }
+
+    fun loadMore(lastApodDate: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val apods = interactor.fetchApods(lastApodDate)
             val apodsUi = apods.map(apodsDomainToUiMapper)
 
             withContext(Dispatchers.Main) {
