@@ -14,4 +14,6 @@ abstract class ApodUi {
         val date: String,
         val description: String
     ): ApodUi()
+
+    class LoadingFooter(): ApodUi()
 }

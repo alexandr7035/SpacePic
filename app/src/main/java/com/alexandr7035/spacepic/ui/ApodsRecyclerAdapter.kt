@@ -7,19 +7,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.databinding.ViewApodImageBinding
+import com.alexandr7035.spacepic.databinding.ViewApodLoadingFooterBinding
 import com.alexandr7035.spacepic.databinding.ViewApodVideoBinding
 import com.bumptech.glide.Glide
 import timber.log.Timber
 
 class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder>() {
 
-    private var items = emptyList<ApodUi>()
+    private var items = ArrayList<ApodUi>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<ApodUi>) {
+    fun setItems(items: ArrayList<ApodUi>) {
         this.items = items
 //        Timber.debug("set items $items")
         notifyDataSetChanged()
+    }
+
+    fun addLoadingFooter() {
+        items.add(ApodUi.LoadingFooter())
+        notifyItemInserted(items.size-1)
+    }
+
+    fun removeLoadingFooter() {
+        items.removeAt(items.size - 1)
+        notifyItemRemoved(items.size-1)
     }
 
     override fun getItemCount(): Int {
@@ -38,6 +49,11 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
                 ViewHolder.Video(binding)
             }
 
+            ApodViewType.LOADING_FOOTER.ordinal -> {
+                val binding = ViewApodLoadingFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ViewHolder.LoadingFooter(binding)
+            }
+
             else -> {
                 throw RuntimeException("unknown viewholder, implement it")
             }
@@ -49,6 +65,7 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
         return when(items[position]) {
             is ApodUi.ImageApod -> ApodViewType.APOD_IMAGE.ordinal
             is ApodUi.VideoApod -> ApodViewType.APOD_VIDEO.ordinal
+            is ApodUi.LoadingFooter -> ApodViewType.LOADING_FOOTER.ordinal
             else -> throw java.lang.RuntimeException("Unknown viewtype. Implement it")
         }
     }
@@ -80,6 +97,12 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
                 Timber.debug("url ${apodCasted.videoThumbUrl}")
 
                 Glide.with(binding.root.context).load(apod.videoThumbUrl).into(binding.videoThumbView)
+            }
+        }
+
+        class LoadingFooter(private val binding: ViewApodLoadingFooterBinding): ViewHolder(binding.root) {
+            override fun bind(apod: ApodUi) {
+
             }
         }
     }

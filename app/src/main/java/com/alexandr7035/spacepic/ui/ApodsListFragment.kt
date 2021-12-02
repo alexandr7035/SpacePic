@@ -1,13 +1,13 @@
 package com.alexandr7035.spacepic.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.alexandr7035.spacepic.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.databinding.FragmentApodsListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +29,8 @@ class ApodsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ApodsRecyclerAdapter()
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding?.recycler?.layoutManager = layoutManager
         binding?.recycler?.adapter = adapter
 
         viewModel.apodsLiveData.value = ApodsUi.Progress()
@@ -42,7 +44,7 @@ class ApodsListFragment : Fragment() {
                     binding?.progressView?.visibility = View.GONE
                     binding?.errorView?.visibility = View.GONE
                     binding?.recycler?.visibility = View.VISIBLE
-                    adapter.setItems(apodsUi.apods)
+                    adapter.setItems(ArrayList(apodsUi.apods))
                 }
                 is ApodsUi.Progress -> {
                     binding?.progressView?.visibility = View.VISIBLE
@@ -65,6 +67,31 @@ class ApodsListFragment : Fragment() {
         binding?.retryBtn?.setOnClickListener {
             viewModel.init()
         }
+
+        binding?.recycler?.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+
+            private var isLoading: Boolean = false
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val visibleItemsCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                if (! isLoading) {
+                    if (visibleItemsCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
+                        isLoading = true
+                        adapter.addLoadingFooter()
+                        loadMoreItems()
+                    }
+                }
+            }
+
+            fun loadMoreItems() {
+                Timber.debug("load more...")
+            }
+        })
     }
 
     override fun onDestroyView() {
