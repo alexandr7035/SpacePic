@@ -17,6 +17,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.POST
 import javax.inject.Singleton
 
 @Module
@@ -94,8 +95,13 @@ class AppModule {
 
     // Interactor
     @Provides
-    fun provideApodsInteractor(repository: ApodsRepository, apodsDataToDomainMapper: ApodsDataToDomainMapper): ApodsInteractor {
-        return ApodsInteractorImpl(repository, apodsDataToDomainMapper)
+    fun provideApodsInteractor(repository: ApodsRepository, apodsDataToDomainMapper: ApodsDataToDomainMapper, apodsDatesHelper: ApodsDatesHelper): ApodsInteractor {
+        return ApodsInteractorImpl(repository, apodsDataToDomainMapper, apodsDatesHelper)
+    }
+
+    @Provides
+    fun provideApodsDatesHelper(): ApodsDatesHelper {
+        return ApodsDatesHelper.Impl()
     }
 
     // Common
@@ -103,4 +109,5 @@ class AppModule {
     fun provideResourceProvider(application: Application): ResourceProvider {
         return ResourceProviderImpl(application)
     }
+
 }

@@ -8,7 +8,11 @@ import timber.log.Timber
 import java.time.Instant
 import java.util.*
 
-class ApodsInteractorImpl(private val apodsRepository: ApodsRepository, private val apodsDataToDomainMapper: ApodsDataToDomainMapper): ApodsInteractor {
+class ApodsInteractorImpl(
+    private val apodsRepository: ApodsRepository,
+    private val apodsDataToDomainMapper: ApodsDataToDomainMapper,
+    private val apodsDatesHelper: ApodsDatesHelper
+): ApodsInteractor {
     override suspend fun fetchApods(lastApodDate: Long): ApodsDomain {
 
         // FIXME move logics to a separate file
@@ -27,7 +31,10 @@ class ApodsInteractorImpl(private val apodsRepository: ApodsRepository, private 
 
         Timber.debug("fetch apods $startDateStr $endDateStr")
 
-        val data = apodsRepository.fetchPictures(startDateStr, endDateStr)
+        val startDate = apodsDatesHelper.getStartDate(lastApodDate)
+        val endDate = apodsDatesHelper.getEndDate(lastApodDate)
+
+        val data = apodsRepository.fetchPictures(startDate, endDate)
 
         // Return domain entities
         return data.map(apodsDataToDomainMapper)
