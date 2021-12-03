@@ -7,7 +7,20 @@
 
     <fragment
         android:id="@+id/apodsListFragment"
-        android:name="com.alexandr7035.spacepic.ui.ApodsListFragment"
+        android:name="com.alexandr7035.spacepic.ui.apods_list.ApodsListFragment"
         android:label="fragment_apods_list"
-        tools:layout="@layout/fragment_apods_list" />
+        tools:layout="@layout/fragment_apods_list" >
+        <action
+            android:id="@+id/action_apodsListFragment_to_apodPageFragment"
+            app:destination="@id/apodPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/apodPageFragment"
+        android:name="com.alexandr7035.spacepic.ui.apod_page.ApodPageFragment"
+        android:label="fragment_apod_page"
+        tools:layout="@layout/fragment_apod_page" >
+        <argument
+            android:name="apodDate"
+            app:argType="long" />
+    </fragment>
 </navigation>
