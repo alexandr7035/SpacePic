@@ -2,10 +2,7 @@ package com.alexandr7035.spacepic.di
 
 import android.app.Application
 import com.alexandr7035.spacepic.data.*
-import com.alexandr7035.spacepic.data.remote.ApodListRemoteToDataMapper
-import com.alexandr7035.spacepic.data.remote.ApodListRemoteToDataMapperImpl
-import com.alexandr7035.spacepic.data.remote.ApodRemoteToDataMapper
-import com.alexandr7035.spacepic.data.remote.ApodRemoteToDataMapperImpl
+import com.alexandr7035.spacepic.data.remote.*
 import com.alexandr7035.spacepic.domain.*
 import com.alexandr7035.spacepic.ui.ApodDomainToUiMapperImpl
 import com.alexandr7035.spacepic.ui.ApodsDomainToUiMapperImpl
@@ -17,7 +14,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.POST
 import javax.inject.Singleton
 
 @Module

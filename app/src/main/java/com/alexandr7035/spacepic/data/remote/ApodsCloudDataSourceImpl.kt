@@ -1,7 +1,7 @@
-package com.alexandr7035.spacepic.data
+package com.alexandr7035.spacepic.data.remote
 
 import com.alexandr7035.spacepic.BuildConfig
-import com.alexandr7035.spacepic.data.remote.ApodRemote
+import com.alexandr7035.spacepic.data.ApiService
 import javax.inject.Inject
 
 class ApodsCloudDataSourceImpl @Inject constructor(private val apiService: ApiService): ApodsCloudDataSource {
