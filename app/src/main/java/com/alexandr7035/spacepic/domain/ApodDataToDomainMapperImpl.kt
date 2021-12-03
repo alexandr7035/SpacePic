@@ -5,7 +5,8 @@ import com.alexandr7035.spacepic.data.ApodDataToDomainMapper
 import timber.log.Timber
 import java.lang.RuntimeException
 
-class ApodDataToDomainMapperImpl: ApodDataToDomainMapper {
+class ApodDataToDomainMapperImpl : ApodDataToDomainMapper {
+
     override fun map(
         mediaType: String,
         title: String,
@@ -18,9 +19,9 @@ class ApodDataToDomainMapperImpl: ApodDataToDomainMapper {
         // Return video or image here
         Timber.debug(mediaType)
 
-        when (mediaType) {
-            "image" -> {
-                return ApodDomain.ImageApod(
+        return when (mediaType) {
+            APOD_IMAGE -> {
+                ApodDomain.ImageApod(
                     title = title,
                     imageUrl = apodUrl,
                     date = date,
@@ -28,8 +29,8 @@ class ApodDataToDomainMapperImpl: ApodDataToDomainMapper {
                 )
             }
 
-            "video" -> {
-                return ApodDomain.VideoApod(
+            APOD_VIDEO -> {
+                ApodDomain.VideoApod(
                     title = title,
                     videoThumbUrl = videoThumbUrl ?: "",
                     date = date,
@@ -37,10 +38,14 @@ class ApodDataToDomainMapperImpl: ApodDataToDomainMapper {
                 )
             }
 
-            else -> {
-                throw RuntimeException("Unknown APOD type")
-            }
+            else -> throw RuntimeException("Unknown APOD type. Implement it")
+
         }
 
+    }
+
+    companion object {
+        private const val APOD_IMAGE = "image"
+        private const val APOD_VIDEO = "video"
     }
 }
