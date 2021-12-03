@@ -1,31 +1,25 @@
 package com.alexandr7035.spacepic.ui.apods_list
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.databinding.ViewApodImageBinding
 import com.alexandr7035.spacepic.databinding.ViewApodLoadingFooterBinding
 import com.alexandr7035.spacepic.databinding.ViewApodVideoBinding
 import com.alexandr7035.spacepic.ui.ApodUi
 import com.bumptech.glide.Glide
-import timber.log.Timber
 
-class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder>() {
+class ApodsRecyclerAdapter(
+    private val imageClickListener: ImageClickListener,
+    private val videoClickListener: VideoClickListener
+): RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder>() {
 
-    private var items = ArrayList<ApodUi>()
+    var items = ArrayList<ApodUi>()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun addItems(insertedItems: ArrayList<ApodUi>) {
-//        this.items = items
-
         val currentEnd = insertedItems.size
-
         this.items.addAll(insertedItems)
-//        Timber.debug("set items $items")
-//        notifyDataSetChanged()
         notifyItemRangeChanged(currentEnd+1, insertedItems.size)
     }
 
@@ -57,12 +51,12 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
         return when(viewType) {
             ApodViewType.APOD_IMAGE.ordinal -> {
                 val binding = ViewApodImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ViewHolder.Image(binding)
+                ViewHolder.Image(binding, imageClickListener)
             }
 
             ApodViewType.APOD_VIDEO.ordinal -> {
                 val binding = ViewApodVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ViewHolder.Video(binding)
+                ViewHolder.Video(binding, videoClickListener)
             }
 
             ApodViewType.LOADING_FOOTER.ordinal -> {
@@ -77,7 +71,6 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
     }
 
     override fun getItemViewType(position: Int): Int {
-//        return super.getItemViewType(position)
         return when(items[position]) {
             is ApodUi.ImageApod -> ApodViewType.APOD_IMAGE.ordinal
             is ApodUi.VideoApod -> ApodViewType.APOD_VIDEO.ordinal
@@ -94,25 +87,29 @@ class ApodsRecyclerAdapter: RecyclerView.Adapter<ApodsRecyclerAdapter.ViewHolder
     abstract class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         abstract fun bind(apod: ApodUi)
 
-        class Image(private val binding: ViewApodImageBinding): ViewHolder(binding.root) {
+        class Image(private val binding: ViewApodImageBinding, private val clickListener: ImageClickListener): ViewHolder(binding.root) {
+
             override fun bind(apod: ApodUi) {
                 val apodCasted = apod as ApodUi.ImageApod
+
                 binding.date.text = apodCasted.date
                 binding.title.text = apodCasted.title
-
                 Glide.with(binding.root.context).load(apod.imageUrl).into(binding.imageView)
+
+                binding.root.setOnClickListener { clickListener.onImageApodClicked(apod.date) }
+
             }
         }
 
-        class Video(private val binding: ViewApodVideoBinding): ViewHolder(binding.root) {
+        class Video(private val binding: ViewApodVideoBinding, private val clickListener: VideoClickListener): ViewHolder(binding.root) {
             override fun bind(apod: ApodUi) {
                 val apodCasted = apod as ApodUi.VideoApod
+
                 binding.date.text = apodCasted.date
                 binding.title.text = apodCasted.title
-
-                Timber.debug("url ${apodCasted.videoThumbUrl}")
-
                 Glide.with(binding.root.context).load(apod.videoThumbUrl).into(binding.videoThumbView)
+
+                binding.root.setOnClickListener { clickListener.onVideoApodClicked(apod.date) }
             }
         }
 

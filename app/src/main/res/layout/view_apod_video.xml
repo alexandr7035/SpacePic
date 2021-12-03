@@ -5,6 +5,8 @@
     android:layout_margin="8dp"
     android:elevation="4dp"
     app:cardCornerRadius="@dimen/cardCornerRadius"
+    android:clickable="true"
+    android:focusable="true"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -21,6 +23,7 @@
 
     <FrameLayout
         android:padding="16dp"
+        android:foreground="@drawable/foreground_apod_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

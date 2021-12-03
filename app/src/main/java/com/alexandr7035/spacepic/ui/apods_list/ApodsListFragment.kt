@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ApodsListFragment : Fragment() {
+class ApodsListFragment : Fragment(), ImageClickListener, VideoClickListener {
 
     private var binding: FragmentApodsListBinding? = null
     private val viewModel by viewModels<ApodListViewModel>()
@@ -34,7 +34,11 @@ class ApodsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ApodsRecyclerAdapter()
+        val adapter = ApodsRecyclerAdapter(
+            imageClickListener = this,
+            videoClickListener = this
+        )
+
         val layoutManager = LinearLayoutManager(requireContext())
         binding?.recycler?.layoutManager = layoutManager
         binding?.recycler?.adapter = adapter
@@ -130,5 +134,13 @@ class ApodsListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    override fun onImageApodClicked(apodDate: String) {
+        Timber.debug("clicked image $apodDate")
+    }
+
+    override fun onVideoApodClicked(apodDate: String) {
+        Timber.debug("clicked video $apodDate")
     }
 }
