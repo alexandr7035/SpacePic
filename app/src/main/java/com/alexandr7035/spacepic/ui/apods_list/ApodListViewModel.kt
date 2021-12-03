@@ -1,4 +1,4 @@
-package com.alexandr7035.spacepic.ui
+package com.alexandr7035.spacepic.ui.apods_list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.alexandr7035.spacepic.domain.ApodDomainToUiMapper
 import com.alexandr7035.spacepic.domain.ApodsDomainToUiMapper
 import com.alexandr7035.spacepic.domain.ApodsInteractor
+import com.alexandr7035.spacepic.ui.ApodUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,13 +14,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class ApodListViewModel @Inject constructor(
     private val interactor: ApodsInteractor,
     private val apodsDomainToUiMapper: ApodsDomainToUiMapper,
-    private val apodDomainToUiMapper: ApodDomainToUiMapper
 ): ViewModel() {
     val apodsLiveData = MutableLiveData<ApodsUi>()
-    val singleApodLiveData = MutableLiveData<ApodUi>()
 
     fun init() {
         apodsLiveData.postValue(ApodsUi.Progress())
@@ -45,14 +44,4 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getSingleApod(date: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val apod = interactor.fetchSingleApod(date)
-            val apodUi = apod.map(apodDomainToUiMapper)
-
-            withContext(Dispatchers.Main) {
-                singleApodLiveData.value = apodUi
-            }
-        }
-    }
 }

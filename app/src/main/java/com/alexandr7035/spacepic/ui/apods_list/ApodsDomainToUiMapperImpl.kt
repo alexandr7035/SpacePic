@@ -1,4 +1,4 @@
-package com.alexandr7035.spacepic.ui
+package com.alexandr7035.spacepic.ui.apods_list
 
 import com.alexandr7035.spacepic.R
 import com.alexandr7035.spacepic.core.ErrorType

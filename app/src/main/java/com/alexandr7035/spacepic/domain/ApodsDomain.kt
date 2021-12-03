@@ -4,7 +4,7 @@ import com.alexandr7035.spacepic.core.Abstract
 import com.alexandr7035.spacepic.core.ErrorType
 import com.alexandr7035.spacepic.data.ApodData
 import com.alexandr7035.spacepic.data.ApodDataToDomainMapper
-import com.alexandr7035.spacepic.ui.ApodsUi
+import com.alexandr7035.spacepic.ui.apods_list.ApodsUi
 import retrofit2.HttpException
 import java.lang.Exception
 import java.net.ConnectException

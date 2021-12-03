@@ -5,7 +5,7 @@ import com.alexandr7035.spacepic.data.*
 import com.alexandr7035.spacepic.data.remote.*
 import com.alexandr7035.spacepic.domain.*
 import com.alexandr7035.spacepic.ui.ApodDomainToUiMapperImpl
-import com.alexandr7035.spacepic.ui.ApodsDomainToUiMapperImpl
+import com.alexandr7035.spacepic.ui.apods_list.ApodsDomainToUiMapperImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

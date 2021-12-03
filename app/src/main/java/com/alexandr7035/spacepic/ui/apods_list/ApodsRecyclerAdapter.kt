@@ -1,4 +1,4 @@
-package com.alexandr7035.spacepic.ui
+package com.alexandr7035.spacepic.ui.apods_list
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.databinding.ViewApodImageBinding
 import com.alexandr7035.spacepic.databinding.ViewApodLoadingFooterBinding
 import com.alexandr7035.spacepic.databinding.ViewApodVideoBinding
+import com.alexandr7035.spacepic.ui.ApodUi
 import com.bumptech.glide.Glide
 import timber.log.Timber
 

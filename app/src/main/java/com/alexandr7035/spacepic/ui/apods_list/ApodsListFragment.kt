@@ -1,4 +1,4 @@
-package com.alexandr7035.spacepic.ui
+package com.alexandr7035.spacepic.ui.apods_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.core.extensions.getApodStringDateFromUnix
 import com.alexandr7035.spacepic.core.extensions.getApodUnixDateFromString
 import com.alexandr7035.spacepic.databinding.FragmentApodsListBinding
+import com.alexandr7035.spacepic.ui.ApodUi
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -19,7 +20,7 @@ import timber.log.Timber
 class ApodsListFragment : Fragment() {
 
     private var binding: FragmentApodsListBinding? = null
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<ApodListViewModel>()
 
     // FIXME global var is not good
     private var isPaginationLoading: Boolean = false
