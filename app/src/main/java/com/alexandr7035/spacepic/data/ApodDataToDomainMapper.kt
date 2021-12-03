@@ -12,4 +12,6 @@ interface ApodDataToDomainMapper: Abstract.Mapper {
         description: String,
         videoThumbUrl: String?
     ): ApodDomain
+
+    fun map(e: Exception): ApodDomain
 }

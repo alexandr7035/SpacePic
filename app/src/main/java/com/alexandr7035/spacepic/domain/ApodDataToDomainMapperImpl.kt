@@ -44,6 +44,10 @@ class ApodDataToDomainMapperImpl : ApodDataToDomainMapper {
 
     }
 
+    override fun map(e: Exception): ApodDomain {
+        return ApodDomain.Fail(e)
+    }
+
     companion object {
         private const val APOD_IMAGE = "image"
         private const val APOD_VIDEO = "video"

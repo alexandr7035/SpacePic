@@ -12,4 +12,8 @@ class ApodsCloudDataSourceImpl @Inject constructor(private val apiService: ApiSe
             apiKey = BuildConfig.API_KEY
         ).reversed()
     }
+
+    override suspend fun fetchApod(date: String): ApodRemote {
+        return apiService.getApodByDate(date = date, apiKey = BuildConfig.API_KEY)
+    }
 }

@@ -16,4 +16,6 @@ abstract class ApodUi {
     ): ApodUi()
 
     class LoadingFooter(): ApodUi()
+
+    class Fail(val errorMessage: String): ApodUi()
 }

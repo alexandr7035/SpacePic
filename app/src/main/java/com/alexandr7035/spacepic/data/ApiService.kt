@@ -13,4 +13,11 @@ interface ApiService {
         @Query("api_key") apiKey: String,
         @Query("thumbs") includeThumbs: Boolean = true
     ): List<ApodRemote>
+
+    @GET("/planetary/apod")
+    suspend fun getApodByDate(
+        @Query("date") date: String,
+        @Query("api_key") apiKey: String,
+        @Query("thumbs") includeThumbs: Boolean = true
+    ): ApodRemote
 }
