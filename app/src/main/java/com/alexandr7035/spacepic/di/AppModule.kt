@@ -74,8 +74,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideApodDomainToUiMapper(): ApodDomainToUiMapper {
-        return ApodDomainToUiMapperImpl()
+    fun provideApodDomainToUiMapper(resourceProvider: ResourceProvider): ApodDomainToUiMapper {
+        return ApodDomainToUiMapperImpl(resourceProvider)
     }
 
     @Provides
@@ -85,14 +85,14 @@ class AppModule {
 
     // Repository
     @Provides
-    fun provideApodsRepository(cloudDataSource: ApodsCloudDataSource, mapper: ApodListRemoteToDataMapper): ApodsRepository {
-        return ApodsRepositoryImpl(cloudDataSource, mapper)
+    fun provideApodsRepository(cloudDataSource: ApodsCloudDataSource, mapper: ApodListRemoteToDataMapper, apodRemoteToDataMapper: ApodRemoteToDataMapper): ApodsRepository {
+        return ApodsRepositoryImpl(cloudDataSource, mapper, apodRemoteToDataMapper)
     }
 
     // Interactor
     @Provides
-    fun provideApodsInteractor(repository: ApodsRepository, apodsDataToDomainMapper: ApodsDataToDomainMapper, apodsDatesHelper: ApodsDatesHelper): ApodsInteractor {
-        return ApodsInteractorImpl(repository, apodsDataToDomainMapper, apodsDatesHelper)
+    fun provideApodsInteractor(repository: ApodsRepository, apodsDataToDomainMapper: ApodsDataToDomainMapper, apodsDatesHelper: ApodsDatesHelper, apodDataToDomainMapper: ApodDataToDomainMapper): ApodsInteractor {
+        return ApodsInteractorImpl(repository, apodsDataToDomainMapper, apodDataToDomainMapper, apodsDatesHelper)
     }
 
     @Provides

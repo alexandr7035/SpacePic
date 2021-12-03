@@ -12,7 +12,7 @@ class ApodRemoteToDataMapperImpl: ApodRemoteToDataMapper {
         description: String,
         videoThumbUrl: String?
     ): ApodData {
-        return ApodData(
+        return ApodData.Base(
             mediaType = mediaType,
             title = title,
             apodUrl = apodUrl,
