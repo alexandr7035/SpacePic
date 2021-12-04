@@ -8,3 +8,17 @@ fun String.getApodUnixDateFromString(): Long {
     format.timeZone = TimeZone.getTimeZone("GMT")
     return format.parse(this)!!.time
 }
+
+fun Long.getStringDateFromUnix(
+    stringFormat: String,
+    timezoneStr: String? = null,
+    locale: Locale = Locale.US
+): String {
+    val format = SimpleDateFormat(stringFormat, locale)
+
+    if (timezoneStr != null) {
+        format.timeZone = TimeZone.getTimeZone(timezoneStr)
+    }
+
+    return format.format(this)
+}
