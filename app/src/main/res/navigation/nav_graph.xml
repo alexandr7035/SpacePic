@@ -11,14 +11,14 @@
         android:label="fragment_apods_list"
         tools:layout="@layout/fragment_apods_list" >
         <action
-            android:id="@+id/action_apodsListFragment_to_apodPageFragment"
-            app:destination="@id/apodPageFragment" />
+            android:id="@+id/action_apodsListFragment_to_imagePageFragment"
+            app:destination="@id/imagePageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/apodPageFragment"
-        android:name="com.alexandr7035.spacepic.ui.apod_page.ApodPageFragment"
-        android:label="fragment_apod_page"
-        tools:layout="@layout/fragment_apod_page" >
+        android:id="@+id/imagePageFragment"
+        android:name="com.alexandr7035.spacepic.ui.apod_page.ImagePageFragment"
+        android:label="fragment_image_page"
+        tools:layout="@layout/fragment_image_page" >
         <argument
             android:name="apodDate"
             app:argType="long" />

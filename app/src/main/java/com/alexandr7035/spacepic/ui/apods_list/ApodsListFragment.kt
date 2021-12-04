@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.core.extensions.getApodStringDateFromUnix
 import com.alexandr7035.spacepic.core.extensions.getApodUnixDateFromString
+import com.alexandr7035.spacepic.core.extensions.navigateSafe
 import com.alexandr7035.spacepic.databinding.FragmentApodsListBinding
 import com.alexandr7035.spacepic.ui.ApodUi
 import dagger.hilt.android.AndroidEntryPoint
@@ -137,7 +139,8 @@ class ApodsListFragment : Fragment(), ImageClickListener, VideoClickListener {
     }
 
     override fun onImageApodClicked(apodDate: String) {
-        Timber.debug("clicked image $apodDate")
+        val date = apodDate.getApodUnixDateFromString()
+        findNavController().navigateSafe(ApodsListFragmentDirections.actionApodsListFragmentToImagePageFragment(date))
     }
 
     override fun onVideoApodClicked(apodDate: String) {

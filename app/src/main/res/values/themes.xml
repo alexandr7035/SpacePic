@@ -11,9 +11,9 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
 
         <item name="android:windowBackground">@color/gray_700</item>
+        <item name="toolbarNavigationButtonStyle">@style/ToolbarNavIconStyle</item>
     </style>
 
     <style name="CardTitleStyle">
@@ -30,6 +30,15 @@
     <style name="ToolbarStyle">
         <item name="titleTextColor">@color/white</item>
         <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="DetailsToolbarStyle" parent="Theme.SpacePic">
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="navigationIcon">?attr/actionModeCloseDrawable</item>
+        <item name="android:elevation">5dp</item>
     </style>
 
     <style name="ErrorTextStyle">
@@ -51,5 +60,20 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/gray_100</item>
+    </style>
+
+    <style name="ToolbarNavIconStyle" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="DescriptionTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/gray_100</item>
+    </style>
+
+    <style name="DetailsTitleStyle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/gray_100</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
