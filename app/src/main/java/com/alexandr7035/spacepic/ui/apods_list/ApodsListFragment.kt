@@ -119,8 +119,8 @@ class ApodsListFragment : Fragment(), ImageClickListener, VideoClickListener {
                 val lastApod = adapter.getLastItem()
 
                 val lastApodDate = when(lastApod) {
-                    is ApodUi.ImageApod -> lastApod.date.getApodUnixDateFromString()
-                    is ApodUi.VideoApod -> lastApod.date.getApodUnixDateFromString()
+                    is ApodUi.ImageApod -> lastApod.date
+                    is ApodUi.VideoApod -> lastApod.date
                     else -> System.currentTimeMillis()
                 }
 
@@ -138,12 +138,11 @@ class ApodsListFragment : Fragment(), ImageClickListener, VideoClickListener {
         binding = null
     }
 
-    override fun onImageApodClicked(apodDate: String) {
-        val date = apodDate.getApodUnixDateFromString()
-        findNavController().navigateSafe(ApodsListFragmentDirections.actionApodsListFragmentToImagePageFragment(date))
+    override fun onImageApodClicked(apodDate: Long) {
+        findNavController().navigateSafe(ApodsListFragmentDirections.actionApodsListFragmentToImagePageFragment(apodDate))
     }
 
-    override fun onVideoApodClicked(apodDate: String) {
+    override fun onVideoApodClicked(apodDate: Long) {
         Timber.debug("clicked video $apodDate")
     }
 }

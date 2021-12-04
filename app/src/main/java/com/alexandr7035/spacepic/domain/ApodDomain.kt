@@ -12,7 +12,7 @@ abstract class ApodDomain(): Abstract.Object<ApodUi, ApodDomainToUiMapper>() {
     class ImageApod(
         private val title: String,
         private val imageUrl: String,
-        private val date: String,
+        private val date: Long,
         private val description: String
     ): ApodDomain() {
 
@@ -24,7 +24,7 @@ abstract class ApodDomain(): Abstract.Object<ApodUi, ApodDomainToUiMapper>() {
     class VideoApod(
         private val title: String,
         private val videoThumbUrl: String,
-        private val date: String,
+        private val date: Long,
         private val description: String
     ): ApodDomain() {
         override fun map(mapper: ApodDomainToUiMapper): ApodUi {

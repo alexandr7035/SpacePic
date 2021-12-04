@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alexandr7035.spacepic.core.extensions.debug
+import com.alexandr7035.spacepic.core.extensions.getStringDateFromUnix
 import com.alexandr7035.spacepic.databinding.FragmentImagePageBinding
 import com.alexandr7035.spacepic.ui.ApodUi
 import com.bumptech.glide.Glide
@@ -45,7 +46,7 @@ class ImagePageFragment : Fragment() {
             binding?.titleView?.text = apod.title
             binding?.descriptionView?.text = apod.description
             // FIXME
-            binding?.toolbar?.title = apod.date
+            binding?.toolbar?.title = apod.date.getStringDateFromUnix("dd MMM yyyy")
             Glide.with(binding!!.root.context).load(apod.imageUrl).into(binding!!.imageView)
         })
     }

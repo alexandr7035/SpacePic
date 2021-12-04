@@ -7,11 +7,11 @@ import com.alexandr7035.spacepic.domain.ResourceProvider
 import javax.inject.Inject
 
 class ApodDomainToUiMapperImpl @Inject constructor(private val resourceProvider: ResourceProvider): ApodDomainToUiMapper {
-    override fun mapImage(title: String, imageUrl: String, date: String, description: String): ApodUi {
+    override fun mapImage(title: String, imageUrl: String, date: Long, description: String): ApodUi {
         return ApodUi.ImageApod(title = title, imageUrl = imageUrl, date = date, description = description)
     }
 
-    override fun mapVideo(title: String, videoThumbUrl: String, date: String, description: String): ApodUi {
+    override fun mapVideo(title: String, videoThumbUrl: String, date: Long, description: String): ApodUi {
         return ApodUi.VideoApod(title = title, videoThumbUrl = videoThumbUrl, date = date, description = description)
     }
 

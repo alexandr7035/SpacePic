@@ -9,7 +9,7 @@ abstract class ApodData: Abstract.Object<ApodDomain, ApodDataToDomainMapper>() {
         private val mediaType: String,
         private val title: String,
         private val apodUrl: String,
-        private val date: String,
+        private val date: Long,
         private val description: String,
         private val videoThumbUrl: String?): ApodData() {
 

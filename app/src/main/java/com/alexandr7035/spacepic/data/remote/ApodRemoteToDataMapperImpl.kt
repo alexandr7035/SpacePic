@@ -1,5 +1,6 @@
 package com.alexandr7035.spacepic.data.remote
 
+import com.alexandr7035.spacepic.core.extensions.getApodUnixDateFromString
 import com.alexandr7035.spacepic.data.ApodData
 
 class ApodRemoteToDataMapperImpl: ApodRemoteToDataMapper {
@@ -16,7 +17,7 @@ class ApodRemoteToDataMapperImpl: ApodRemoteToDataMapper {
             mediaType = mediaType,
             title = title,
             apodUrl = apodUrl,
-            date = date,
+            date = date.getApodUnixDateFromString(),
             description = description,
             videoThumbUrl = videoThumbUrl
         )

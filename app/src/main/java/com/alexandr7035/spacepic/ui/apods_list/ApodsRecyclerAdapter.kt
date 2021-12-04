@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.alexandr7035.spacepic.core.extensions.getApodStringDateFromUnix
 import com.alexandr7035.spacepic.databinding.ViewApodImageBinding
 import com.alexandr7035.spacepic.databinding.ViewApodLoadingFooterBinding
 import com.alexandr7035.spacepic.databinding.ViewApodVideoBinding
@@ -92,7 +93,7 @@ class ApodsRecyclerAdapter(
             override fun bind(apod: ApodUi) {
                 val apodCasted = apod as ApodUi.ImageApod
 
-                binding.date.text = apodCasted.date
+                binding.date.text = apodCasted.date.getApodStringDateFromUnix()
                 binding.title.text = apodCasted.title
                 Glide.with(binding.root.context).load(apod.imageUrl).into(binding.imageView)
 
@@ -105,7 +106,7 @@ class ApodsRecyclerAdapter(
             override fun bind(apod: ApodUi) {
                 val apodCasted = apod as ApodUi.VideoApod
 
-                binding.date.text = apodCasted.date
+                binding.date.text = apodCasted.date.getApodStringDateFromUnix()
                 binding.title.text = apodCasted.title
                 Glide.with(binding.root.context).load(apod.videoThumbUrl).into(binding.videoThumbView)
 

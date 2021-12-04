@@ -8,12 +8,12 @@ interface ApodDomainToUiMapper: Abstract.Mapper {
     // FIXME
     fun mapImage(title: String,
             imageUrl: String,
-            date: String,
+            date: Long,
             description: String): ApodUi
 
     fun mapVideo(title: String,
             videoThumbUrl: String,
-            date: String,
+            date: Long,
             description: String): ApodUi
 
     fun mapFail(errorType: ErrorType): ApodUi

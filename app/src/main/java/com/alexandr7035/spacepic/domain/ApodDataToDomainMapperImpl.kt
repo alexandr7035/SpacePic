@@ -11,7 +11,7 @@ class ApodDataToDomainMapperImpl : ApodDataToDomainMapper {
         mediaType: String,
         title: String,
         apodUrl: String,
-        date: String,
+        date: Long,
         description: String,
         videoThumbUrl: String?
     ): ApodDomain {
