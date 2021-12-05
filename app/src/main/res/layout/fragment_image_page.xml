@@ -28,6 +28,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="@dimen/apodPageMargin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -36,9 +37,6 @@
                 style="@style/DetailsTitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="@dimen/apodPageMargin"
-                android:layout_marginEnd="@dimen/apodPageMargin"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,9 +47,7 @@
                 android:id="@+id/cardView"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
-                android:layout_marginStart="@dimen/apodPageMargin"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="@dimen/apodPageMargin"
                 android:clickable="true"
                 android:elevation="4dp"
                 android:focusable="true"
@@ -77,15 +73,23 @@
                 android:focusable="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/apodPageMargin"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="@dimen/apodPageMargin"
                 android:ellipsize="end"
                 android:maxLines="9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardView"
                 tools:text="@string/lorem_ipsum" />
+
+            <TextView
+                style="@style/TextViewButtonStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
+                android:text="@string/share"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/descriptionView"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
