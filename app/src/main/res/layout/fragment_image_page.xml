@@ -70,6 +70,7 @@
             <com.alexandr7035.spacepic.core.view.CollapsingTextView
                 android:id="@+id/descriptionView"
                 style="@style/DescriptionTextStyle"
+                android:clickable="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/apodPageMargin"

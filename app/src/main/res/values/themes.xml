@@ -69,6 +69,8 @@
     <style name="DescriptionTextStyle">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/gray_100</item>
+        <item name="android:padding">@dimen/clickableTextPadding</item>
+        <item name="android:background">@drawable/background_clickable_text</item>
     </style>
 
     <style name="DetailsTitleStyle">
@@ -76,4 +78,5 @@
         <item name="android:textColor">@color/gray_100</item>
         <item name="android:textStyle">bold</item>
     </style>
+
 </resources>
