@@ -24,7 +24,7 @@ class ApodListViewModel @Inject constructor(
         apodsLiveData.postValue(ApodsUi.Progress())
 
         viewModelScope.launch(Dispatchers.IO) {
-            val apods = interactor.fetchApods(System.currentTimeMillis())
+            val apods = interactor.fetchApods(lastApodDate = null)
             val apodsUi = apods.map(apodsDomainToUiMapper)
 
             withContext(Dispatchers.Main) {

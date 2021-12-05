@@ -15,7 +15,7 @@ class ApodsInteractorImpl(
     private val apodDataToDomainMapper: ApodDataToDomainMapper,
     private val apodsDatesHelper: ApodsDatesHelper
 ): ApodsInteractor {
-    override suspend fun fetchApods(lastApodDate: Long): ApodsDomain {
+    override suspend fun fetchApods(lastApodDate: Long?): ApodsDomain {
 
         val startDate = apodsDatesHelper.getStartDate(lastApodDate)
         val endDate = apodsDatesHelper.getEndDate(lastApodDate)
