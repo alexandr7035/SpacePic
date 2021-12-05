@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alexandr7035.spacepic.MainActivity
 import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.core.extensions.getApodStringDateFromUnix
-import com.alexandr7035.spacepic.core.extensions.getApodUnixDateFromString
-import com.alexandr7035.spacepic.core.extensions.navigateSafe
 import com.alexandr7035.spacepic.databinding.FragmentApodsListBinding
 import com.alexandr7035.spacepic.ui.ApodUi
+import com.alexandr7035.spacepic.ui.apod_page.ImagePageFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -139,7 +138,7 @@ class ApodsListFragment : Fragment(), ImageClickListener, VideoClickListener {
     }
 
     override fun onImageApodClicked(apodDate: Long) {
-        findNavController().navigateSafe(ApodsListFragmentDirections.actionApodsListFragmentToImagePageFragment(apodDate))
+        (requireActivity() as MainActivity).add(ImagePageFragment.newInstance(apodDate), addToBackStack = true)
     }
 
     override fun onVideoApodClicked(apodDate: Long) {

@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.alexandr7035.spacepic.MainActivity
 import com.alexandr7035.spacepic.core.extensions.debug
 import com.alexandr7035.spacepic.core.extensions.getStringDateFromUnix
 import com.alexandr7035.spacepic.databinding.FragmentImagePageBinding
@@ -22,7 +20,6 @@ class ImagePageFragment : Fragment() {
 
     private var binding: FragmentImagePageBinding? = null
     private val viewModel by viewModels<ApodPageViewModel>()
-    private val safeArgs by navArgs<ImagePageFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -34,10 +31,10 @@ class ImagePageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.toolbar?.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            (requireActivity() as MainActivity).navigateBack()
         }
 
-        val apodDate = safeArgs.apodDate
+        val apodDate = arguments?.getLong(APOD_DATE) ?: System.currentTimeMillis()
         viewModel.init(apodDate)
 
         viewModel.singleApodLiveData.observe(viewLifecycleOwner, {
@@ -55,5 +52,16 @@ class ImagePageFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    companion object {
+        private const val APOD_DATE = "APOD_DATE"
+
+        @JvmStatic
+        fun newInstance(apodDate: Long) = ImagePageFragment().apply {
+            arguments = Bundle().apply {
+                putLong(APOD_DATE, apodDate)
+            }
+        }
     }
 }
