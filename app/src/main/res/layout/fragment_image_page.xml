@@ -67,7 +67,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <TextView
+            <com.alexandr7035.spacepic.core.view.CollapsingTextView
                 android:id="@+id/descriptionView"
                 style="@style/DescriptionTextStyle"
                 android:layout_width="0dp"
