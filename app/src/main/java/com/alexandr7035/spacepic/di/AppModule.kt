@@ -97,7 +97,7 @@ class AppModule {
 
     @Provides
     fun provideApodsDatesHelper(): ApodsDatesHelper {
-        return ApodsDatesHelper.Impl()
+        return ApodsDatesHelper.Impl(pageSize = 25)
     }
 
     // Common
