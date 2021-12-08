@@ -12,18 +12,17 @@ interface ApodsDatesHelper {
 
     fun getEndDate(lastApodDate: Long?): String
 
-    class Impl: ApodsDatesHelper {
-
-        private val apodsPageCount = 25
+    class Impl(private val pageSize: Int): ApodsDatesHelper {
         private val dailyMills = 24L * 60 * 60 * 1000
 
         override fun getStartDate(lastApodDate: Long?): String {
-            val difference = (apodsPageCount-1) * dailyMills
 
             val startDateUnix: Long = if (lastApodDate == null) {
+                val difference = (pageSize-1) * dailyMills
                 System.currentTimeMillis() - difference
             }
             else {
+                val difference = pageSize * dailyMills
                 lastApodDate - difference
             }
 
