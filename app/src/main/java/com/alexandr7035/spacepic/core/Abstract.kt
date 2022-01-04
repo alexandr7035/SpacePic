@@ -6,4 +6,6 @@ abstract class Abstract {
     }
 
     interface Mapper
+
+    class EmptyMapper: Mapper
 }

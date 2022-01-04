@@ -1,6 +1,7 @@
 app/release
 .idea/
 keystore.properties
+gradle.properties
 
 *.iml
 .gradle

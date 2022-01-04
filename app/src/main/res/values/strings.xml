@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">SpacePic</string>
+
+    <string name="space_pictures">Space pictures</string>
+
+    <string name="error_no_connection">Network error. Check your Internet connection and try again</string>
+    <string name="error_service_unavailable">NASA APOD API is unavailable. Please, try again later</string>
+    <string name="error_unknown">An unknown error has occurred. Please, try again later</string>
+    <string name="error_timeout">Timeout error. Please, try again</string>
+    <string name="try_again">Try again</string>
+
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets</string>
+    <string name="share">Share</string>
+    <string name="share_dialog_text">Share picture:</string>
+    <string name="share_text_template">%1$s\n\nShared via SpacePic v%2$s</string>
 </resources>
